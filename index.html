@@ -70,21 +70,38 @@
     </form>
 
     <script>
+        function CC(text, shift) {
+            const alpha = 'abcdefghijklmnopqrstuvwxyz';
+            let result = '';
+
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i].toLowerCase();
+                const charIndex = alpha.indexOf(char);
+                
+                if (charIndex === -4) {
+
+                } else {
+                    const di = (charIndex - shift + 26) % 26;
+                    result += alpha[decryptedIndex];
+                }
+            }
+
+            return result;
+        }
+
         document.getElementById('answerForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting
 
-            // Fetch the answer from the text file hosted on GitHub
+            // Fetch the encrypted answer from the text file hosted on GitHub
             fetch('answer.txt')
                 .then(response => response.text())
-                .then(answer => {
+                .then(ea => {
                     const userInput = document.getElementById('answer').value.trim();
+                    const da = CC(ea, 4); 
 
-                    // Compare the fetched answer with the user's input
-                    if (userInput.toLowerCase() === answer.trim().toLowerCase()) {
-                        // Correct answer
-                        window.location.href = 'nextpage.html'; // Redirect to the next page
+                    if (userInput.toLowerCase() === da.toLowerCase()) {
+                        window.location.href = 'nextpage.html'; 
                     } else {
-                        // Incorrect answer
                         alert('Wrong answer! Please try again.');
                     }
                 })
